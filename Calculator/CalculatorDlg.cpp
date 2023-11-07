@@ -7,6 +7,7 @@
 #include "Calculator.h"
 #include "CalculatorDlg.h"
 #include "afxdialogex.h"
+#include "exprtk.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -75,6 +76,14 @@ BEGIN_MESSAGE_MAP(CCalculatorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON8, &CCalculatorDlg::OnBnClickedButton8)
 	ON_BN_CLICKED(IDC_BUTTON5, &CCalculatorDlg::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_BUTTON12, &CCalculatorDlg::OnBnClickedButton12)
+	ON_BN_CLICKED(IDC_BUTTON9, &CCalculatorDlg::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON13, &CCalculatorDlg::OnBnClickedButton13)
+	ON_BN_CLICKED(IDC_BUTTON15, &CCalculatorDlg::OnBnClickedButton15)
+	ON_BN_CLICKED(IDC_BUTTON16, &CCalculatorDlg::OnBnClickedButton16)
+	ON_BN_CLICKED(IDC_BUTTON17, &CCalculatorDlg::OnBnClickedButton17)
+	ON_BN_CLICKED(IDC_BUTTON18, &CCalculatorDlg::OnBnClickedButton18)
+	ON_BN_CLICKED(IDC_BUTTON3, &CCalculatorDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON10, &CCalculatorDlg::OnBnClickedButton10)
 END_MESSAGE_MAP()
 
 
@@ -311,4 +320,253 @@ void CCalculatorDlg::OnBnClickedButton12()
 		currentText += _T("0");
 		pEdit->SetWindowText(currentText);
 	}
+}
+
+// 按下.
+void CCalculatorDlg::OnBnClickedButton9()
+{
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+		// 检查是否当前文本为空或是运算符输入状态，然后添加小数点
+		if (currentText.IsEmpty() || isOperatorEntered)
+		{
+			currentText += _T(".");
+			pEdit->SetWindowText(currentText);
+			isOperatorEntered = false;  // 重置运算符输入状态
+		}
+		else if (currentText.Find(_T(".")) == -1)
+		{
+			// 如果当前文本中没有小数点，添加小数点
+			currentText += _T(".");
+			pEdit->SetWindowText(currentText);
+		}
+	}
+}
+
+
+// +
+void CCalculatorDlg::OnBnClickedButton13()
+{
+	isOperatorEntered = true;	// 运算符被按下
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+
+		// 获取当前文本的长度
+		int textLength = currentText.GetLength();
+
+		if (textLength != 0)
+		{
+			switch (currentText[textLength - 1])
+			{
+			case L'+':
+			case L'-':
+			case L'*':
+			case L'/':
+			case L'%': 
+			{
+				CString subString = currentText.Left(textLength - 1);
+				pEdit->SetWindowText(subString + "+");
+				break;
+
+			}
+			default:
+			{
+				currentText += L"+";
+				pEdit->SetWindowText(currentText);
+			}
+			}
+		}
+	}
+}
+
+
+
+// - 
+void CCalculatorDlg::OnBnClickedButton15()
+{
+	isOperatorEntered = true;	// 运算符被按下
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+
+		// 获取当前文本的长度
+		int textLength = currentText.GetLength();
+
+		if (textLength != 0)
+		{
+			switch (currentText[textLength - 1])
+			{
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '%':
+			{
+				CString subString = currentText.Left(textLength - 1);
+				pEdit->SetWindowText(subString + "-");
+				break;
+			}
+			default:
+			{
+				currentText += "-";
+				pEdit->SetWindowText(currentText);
+			}
+			}
+		}
+	}
+}
+
+
+// *
+void CCalculatorDlg::OnBnClickedButton16()
+{
+	isOperatorEntered = true;	// 运算符被按下
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+
+		// 获取当前文本的长度
+		int textLength = currentText.GetLength();
+
+		if (textLength != 0)
+		{
+			switch (currentText[textLength - 1])
+			{
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '%':
+			{
+				CString subString = currentText.Left(textLength - 1);
+				pEdit->SetWindowText(subString + "*");
+				break;
+			}
+			default:
+			{
+				currentText += "*";
+				pEdit->SetWindowText(currentText);
+			}
+			}
+		}
+	}
+}
+
+
+// /
+void CCalculatorDlg::OnBnClickedButton17()
+{
+	isOperatorEntered = true;	// 运算符被按下
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+
+		// 获取当前文本的长度
+		int textLength = currentText.GetLength();
+
+		if (textLength != 0)
+		{
+			switch (currentText[textLength - 1])
+			{
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '%':
+			{
+				CString subString = currentText.Left(textLength - 1);
+				pEdit->SetWindowText(subString + "/");
+				break;
+			}
+			default:
+			{
+				currentText += "/";
+				pEdit->SetWindowText(currentText);
+			}
+			}
+		}
+	}
+}
+
+
+// %
+void CCalculatorDlg::OnBnClickedButton18()
+{
+	isOperatorEntered = true;	// 运算符被按下
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	if (pEdit != nullptr)
+	{
+		// 获取当前文本
+		CString currentText;
+		pEdit->GetWindowText(currentText);
+
+
+		// 获取当前文本的长度
+		int textLength = currentText.GetLength();
+
+		if (textLength != 0)
+		{
+			switch (currentText[textLength - 1])
+			{
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case '%':
+			{
+				CString subString = currentText.Left(textLength - 1);
+				pEdit->SetWindowText(subString + "%");
+				break;
+			}
+			default:
+			{
+				currentText += "%";
+				pEdit->SetWindowText(currentText);
+			}
+			}
+		}
+	}
+}
+
+
+// 归零
+void CCalculatorDlg::OnBnClickedButton3()
+{
+	isOperatorEntered = false;	
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_STATIC);
+	pEdit->SetWindowText(L"");
+}
+
+
+
+// 计算
+void CCalculatorDlg::OnBnClickedButton10()
+{
+	isOperatorEntered = false;
+
+	
+
 }

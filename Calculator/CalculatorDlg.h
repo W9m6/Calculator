@@ -25,6 +25,8 @@ public:
 protected:
 	HICON m_hIcon;
 
+	// 追踪是否按下运算符
+	bool isOperatorEntered = false;
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
@@ -43,4 +45,12 @@ public:
 	afx_msg void OnBnClickedButton8();
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton12();
+	afx_msg void OnBnClickedButton9();
+	afx_msg void OnBnClickedButton13();
+	afx_msg void OnBnClickedButton15();
+	afx_msg void OnBnClickedButton16();
+	afx_msg void OnBnClickedButton17();
+	afx_msg void OnBnClickedButton18();
+	afx_msg void OnBnClickedButton3();
+	afx_msg void OnBnClickedButton10();
 };
