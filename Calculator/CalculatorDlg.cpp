@@ -7,7 +7,6 @@
 #include "Calculator.h"
 #include "CalculatorDlg.h"
 #include "afxdialogex.h"
-#include "exprtk.hpp"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
